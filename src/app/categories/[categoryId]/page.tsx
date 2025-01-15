@@ -1,73 +1,82 @@
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ChevronLeft } from 'lucide-react'
-import { Navigation } from '../../components/navigation'
-import { ImageMasonry } from '../../components/image-masonry'
-import { ErrorPage } from '../../components/error-page'
 import { Button } from "@/components/ui/button"
-import { ScrollToTop } from '../../components/scroll-to-top'
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { Header } from "@/app/components/header"
+import { Footer } from "@/app/components/footer"
 
-const products = {
-  'cocina-moderna': {
-    name: 'Cocina Moderna',
-    category: 'Cocinas',
-    description: 'Una cocina moderna con acabados de alta calidad y diseño ergonómico.',
-    images: [
-      '/placeholder.svg?height=600&width=800',
-      '/placeholder.svg?height=600&width=800',
-      '/placeholder.svg?height=600&width=800',
-      '/placeholder.svg?height=600&width=800',
-      '/placeholder.svg?height=600&width=800',
-      '/placeholder.svg?height=600&width=800',
-    ],
+// Simulated data - in a real app, this would come from a database or API
+const categories = {
+  'cocina': {
+    name: 'Muebles de Cocina',
+    products: [
+      { id: 'cocina-1', name: 'Alacena Moderna', price: 1500, image: '/placeholder.svg?height=300&width=300' },
+      { id: 'cocina-2', name: 'Isla Central', price: 2500, image: '/placeholder.svg?height=300&width=300' },
+      { id: 'cocina-3', name: 'Set de Cajones', price: 1200, image: '/placeholder.svg?height=300&width=300' },
+      { id: 'cocina-4', name: 'Mueble para Horno', price: 1800, image: '/placeholder.svg?height=300&width=300' },
+    ]
   },
-  'bano-elegante': {
-    name: 'Baño Elegante',
-    category: 'Baños',
-    description: 'Un baño elegante con detalles lujosos y materiales duraderos.',
-    images: [
-      '/placeholder.svg?height=600&width=800',
-      '/placeholder.svg?height=600&width=800',
-      '/placeholder.svg?height=600&width=800',
-      '/placeholder.svg?height=600&width=800',
-      '/placeholder.svg?height=600&width=800',
-      '/placeholder.svg?height=600&width=800',
-    ],
+  'bano': {
+    name: 'Muebles de Baño',
+    products: [
+      { id: 'bano-1', name: 'Vanitory Flotante', price: 1300, image: '/placeholder.svg?height=300&width=300' },
+      { id: 'bano-2', name: 'Espejo con Luz', price: 800, image: '/placeholder.svg?height=300&width=300' },
+      { id: 'bano-3', name: 'Columna Organizadora', price: 950, image: '/placeholder.svg?height=300&width=300' },
+    ]
   },
-  // Agrega más productos aquí
+  // ... otras categorías
 }
 
-export default function ProductPage({ params }: { params: { categoryId: string } }) {
-  // const product = products[params.product as keyof typeof products]
-  // const category = products[params.categoryId as keyof string]
-  if (!params?.categoryId) {
-    return <ErrorPage />
+export default function CategoryPage({ params }: { params: { categoryId: string } }) {
+  const category = categories[params.categoryId as keyof typeof categories]
+
+  if (!category) {
+    notFound()
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <Button variant="ghost" asChild className="mb-4 -ml-4 hover:bg-transparent">
-            <Link href="/" className="flex items-center text-gray-600 hover:text-gray-900">
-              <ChevronLeft className="h-5 w-5 mr-1" />
-              Volver al inicio
-            </Link>
-          </Button>
-          <div className="space-y-1">
-            {/* <p className="text-sm text-gray-500">{product.category}</p>
-            <h1 className="text-3xl font-extrabold text-gray-900">{product.name}</h1> */}
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-grow">
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-8">
+            <Button variant="ghost" asChild className="-ml-4">
+              <Link href="/" className="flex items-center text-sm text-gray-600 hover:text-gray-900">
+                <ChevronLeft className="mr-1 h-4 w-4" />
+                Volver al inicio
+              </Link>
+            </Button>
+            <h1 className="text-3xl font-bold mt-4">{category.name}</h1>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {category.products.map((product) => (
+              <Card key={product.id} className="overflow-hidden">
+                <Link href={`/products/${product.id}`}>
+                  <div className="aspect-square relative">
+                    <Image
+                      src={product.image || "/placeholder.svg"}
+                      alt={product.name}
+                      fill
+                      className="object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h2 className="text-lg font-semibold">{product.name}</h2>
+                  </CardContent>
+                  <CardFooter className="p-4 pt-0 flex justify-between items-center">
+                    <span className="text-xl font-bold">${product.price}</span>
+                    <Button>Ver detalles</Button>
+                  </CardFooter>
+                </Link>
+              </Card>
+            ))}
           </div>
         </div>
-        
-        {/* <ImageMasonry images={product.images} /> */}
-        
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Descripción</h2>
-          {/* <p className="text-lg text-gray-700">{product.description}</p> */}
-        </div>
       </main>
-      <ScrollToTop />
+      <Footer />
     </div>
   )
 }

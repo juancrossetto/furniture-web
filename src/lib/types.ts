@@ -8,6 +8,7 @@ export interface HomeProps {
 }
 
 export interface ProductCategory {
+    id: number;
     type: 'special' | 'collection' | 'feature'
     title: string
     description?: string

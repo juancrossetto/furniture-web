@@ -74,7 +74,9 @@ import { ProductCategory } from "@/lib/types";
 // ]
 
 export async function HeaderHero() {
-	const { title, description, slogan, cover } = await getHomeInfo();
+	// const { title, description, slogan, cover } = await getHomeInfo();
+	const homeInfo = await getHomeInfo();
+	const title = "pepito";
 	const categories = await getCategories();
 	// const image = `${NEXT_PUBLIC_STRAPI_HOST}${cover.url}`
 	return (
@@ -127,23 +129,22 @@ export async function HeaderHero() {
 
 			{/* Hero Section */}
 			<div className='flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col'>
-				{/* <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-12">
-          <BlocksRenderer content={description} />
-        </h1> */}
-				<div className='bg-white rounded-lg shadow-sm p-6 text-center'>
-					<h2 className='text-3xl font-bold mb-6'>
-						<BlocksRenderer content={slogan} />
-					</h2>
-					<div className='text-gray-600 max-w-3xl mx-auto text-lg [&>p>strong]:font-bold'>
-						<BlocksRenderer content={description} />
-					</div>
-				</div>
+				<h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-12'>
+					El arte del diseño
+					<br />
+					en cada detalle.
+				</h1>
+
 				{/* Category Grid */}
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:auto-rows-[160px] auto-rows-[200px]  flex-grow'>
-					{categories.map((category: any, index: number) => (
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[200px] flex-grow'>
+					{categories.map((category) => (
 						<Link
-							key={index}
-							href={category.href}
+							key={category.id}
+							href={
+								category.type === "special"
+									? category.href
+									: `/categories/${category.id}`
+							}
 							className={`relative group overflow-hidden rounded-2xl ${category.className}`}
 						>
 							{category.type === "special" ? (
@@ -159,8 +160,7 @@ export async function HeaderHero() {
 							) : (
 								<>
 									<Image
-										src={category.imageUrl}
-										// src={image}
+										src={category.imageUrl || "/placeholder.svg"}
 										alt={category.title}
 										fill
 										className='object-cover transition-transform duration-700 group-hover:scale-105'
@@ -184,7 +184,7 @@ export async function HeaderHero() {
 										</p>
 										{category.features && (
 											<ul className='text-white/90 text-sm space-y-2 mb-4'>
-												{category.features.map((feature: any, idx: number) => (
+												{category.features.map((feature, idx) => (
 													<li key={idx}>✓ {feature}</li>
 												))}
 											</ul>
