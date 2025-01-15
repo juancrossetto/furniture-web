@@ -76,7 +76,7 @@ import { ProductCategory } from "@/lib/types";
 export async function HeaderHero() {
 	// const { title, description, slogan, cover } = await getHomeInfo();
 	const homeInfo = await getHomeInfo();
-	const title = "pepito";
+	const title = "Juanma";
 	const categories = await getCategories();
 	// const image = `${NEXT_PUBLIC_STRAPI_HOST}${cover.url}`
 	return (
