@@ -29,8 +29,14 @@ const categories = {
   // ... otras categorías
 }
 
-export default function CategoryPage({ params }: { params: { categoryId: string } }) {
-  const category = categories[params.categoryId as keyof typeof categories]
+export default async function Page({
+    params,
+  }: {
+    params: Promise<{ categoryId: string }>
+  }) {
+    const categoryId = (await params).categoryId
+// export default function CategoryPage({ params }: { params: { categoryId: string } }) {
+  const category = categories[categoryId as keyof typeof categories]
 
   if (!category) {
     notFound()

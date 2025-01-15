@@ -47,8 +47,13 @@ const products = {
   // ... otros productos
 }
 
-export default function ProductPage({ params }: { params: { productId: string } }) {
-  const product = products[params.productId as keyof typeof products]
+export default async function Page({
+    params,
+  }: {
+    params: Promise<{ productId: string }>
+  }) {
+    const productId = (await params).productId
+  const product = products[productId as keyof typeof products]
 
   if (!product) {
     notFound()

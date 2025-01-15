@@ -36,8 +36,15 @@ const products = {
   // Agrega más productos aquí
 }
 
-export default function ProductPage({ params }: { params: { product: string, category: string } }) {
-  const product = products[params.product as keyof typeof products]
+export default async function Page({
+    params,
+  }: {
+    params: Promise<{ product: string, category: string }>
+  }) {
+    const productParam = (await params).product
+    const categoryParam = (await params).category
+// export default function ProductPage({ params }: { params: { product: string, category: string } }) {
+  const product = products[productParam as keyof typeof products]
 
   if (!product) {
     return <ErrorPage />
