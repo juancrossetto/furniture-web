@@ -1,4 +1,5 @@
-import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+// import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import Markdown from 'react-markdown'
 import { getInfoBoxes } from "@/lib/get-info-box";
 import * as Icons from "lucide-react";
 import { IconProps } from "@/lib/types";
@@ -41,7 +42,8 @@ export const InfoSection = async () => {
 								</div>
 								<h3 className='text-lg font-bold mb-3'>{infoBox.title}</h3>
 								<div className='text-gray-600'>
-									<BlocksRenderer content={infoBox.description} />
+									{/* <BlocksRenderer content={infoBox.description} /> */}
+									<Markdown>{infoBox.description}</Markdown>
 								</div>
 							</div>
 						);

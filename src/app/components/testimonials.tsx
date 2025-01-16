@@ -1,4 +1,5 @@
-import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+// import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import Markdown from 'react-markdown'
 import { Card, CardContent } from "@/components/ui/card";
 import { getTestimonials } from "@/lib/get-testimonials";
 
@@ -22,7 +23,8 @@ export const Testimonials = async () => {
 						<Card key={testimonial.id}>
 							<CardContent className='p-6'>
 								<div className='text-gray-600 mb-4'>
-									<BlocksRenderer content={testimonial.description} />
+									{/* <BlocksRenderer content={testimonial.description} /> */}
+									<Markdown>{testimonial.description}</Markdown>
 								</div>
 								<p className='font-semibold'>{testimonial.clientName}</p>
 							</CardContent>

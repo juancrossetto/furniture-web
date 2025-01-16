@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+// import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { MessageCircle, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getHomeInfo } from "@/lib/get-home-info";
@@ -81,52 +81,6 @@ export async function HeaderHero() {
 	// const image = `${NEXT_PUBLIC_STRAPI_HOST}${cover.url}`
 	return (
 		<div className='bg-background min-h-screen flex flex-col'>
-			{/* Header Navigation */}
-			<header className='border-b'>
-				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-					<div className='flex justify-between items-center h-16'>
-						<Link href='/' className='text-2xl font-bold'>
-							{title}
-						</Link>
-
-						<nav className='hidden md:flex items-center space-x-8'>
-							{categories.slice(0, 4).map((category: any) => (
-								<Link
-									key={category.title}
-									href={category.href}
-									className='text-sm font-medium hover:text-primary'
-								>
-									{category.title}
-								</Link>
-							))}
-						</nav>
-
-						<div className='flex items-center space-x-4'>
-							<Button variant='ghost' size='icon' asChild>
-								<Link
-									href='https://instagram.com/tumuebleriaX'
-									target='_blank'
-									rel='noopener noreferrer'
-								>
-									<Instagram className='h-5 w-5' />
-									<span className='sr-only'>Instagram</span>
-								</Link>
-							</Button>
-							<Button variant='ghost' size='icon' asChild>
-								<Link
-									href='https://wa.me/tunumero'
-									target='_blank'
-									rel='noopener noreferrer'
-								>
-									<MessageCircle className='h-5 w-5' />
-									<span className='sr-only'>WhatsApp</span>
-								</Link>
-							</Button>
-						</div>
-					</div>
-				</div>
-			</header>
-
 			{/* Hero Section */}
 			<div className='flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col'>
 				<h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-12'>
@@ -137,9 +91,9 @@ export async function HeaderHero() {
 
 				{/* Category Grid */}
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[200px] flex-grow'>
-					{categories.map((category) => (
+					{categories.map((category, index) => (
 						<Link
-							key={category.id}
+							key={index}
 							href={
 								category.type === "special"
 									? category.href
