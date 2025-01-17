@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 import { Skeleton } from "@/components/ui/skeleton"
+import { WorksGallery } from './works-gallery'
 
 type Furniture = {
   id: number
@@ -62,7 +63,7 @@ export function FurnitureGallery() {
             </Button>
           ))}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredFurniture.map((item, index) => (
             <Card key={item.id}>
               <Link href={`/${item.category}/${item.slug}`}>
@@ -85,7 +86,8 @@ export function FurnitureGallery() {
               </Link>
             </Card>
           ))}
-        </div>
+        </div> */}
+        <WorksGallery />
       </div>
     </div>
   )

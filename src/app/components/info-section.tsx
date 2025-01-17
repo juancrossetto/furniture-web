@@ -1,5 +1,6 @@
-// import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-import Markdown from 'react-markdown'
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+// import Markdown from 'react-markdown'
+// import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { getInfoBoxes } from "@/lib/get-info-box";
 import * as Icons from "lucide-react";
 import { IconProps } from "@/lib/types";
@@ -30,7 +31,7 @@ export const InfoSection = async () => {
 				{/* Info boxes grid */}
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-16'>
 					{/* Delivery Box */}
-					{infoBoxes.map((infoBox) => {
+					{infoBoxes?.map((infoBox) => {
 						return (
 							<div
 								className='text-center p-6 bg-white rounded-lg shadow-sm'
@@ -42,8 +43,9 @@ export const InfoSection = async () => {
 								</div>
 								<h3 className='text-lg font-bold mb-3'>{infoBox.title}</h3>
 								<div className='text-gray-600'>
-									{/* <BlocksRenderer content={infoBox.description} /> */}
-									<Markdown>{infoBox.description}</Markdown>
+									<BlocksRenderer content={infoBox.description} />
+									{/* <Markdown>{infoBox.description}</Markdown> */}
+									{/* {documentToReactComponents(infoBox?.description)} */}
 								</div>
 							</div>
 						);

@@ -69,7 +69,6 @@ export default async function Page({
 
 	return (
 		<div className='min-h-screen flex flex-col'>
-            asd
 			{/* <Header />
 			<main className='flex-grow'>
 				<article className='max-w-4xl mx-auto px-4 py-8'>

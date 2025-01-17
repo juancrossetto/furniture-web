@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-// import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { MessageCircle, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getHomeInfo } from "@/lib/get-home-info";
@@ -73,7 +73,7 @@ import { ProductCategory } from "@/lib/types";
 //   }
 // ]
 
-export async function HeaderHero() {
+export async function Hero() {
 	// const { title, description, slogan, cover } = await getHomeInfo();
 	const homeInfo = await getHomeInfo();
 	const title = "Juanma";
